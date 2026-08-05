@@ -20,7 +20,8 @@ let package = Package(
     targets: [
         .target(
             name: "CodeLanguage",
-            path: "Sources"
+            path: "Sources",
+            swiftSettings: [.unsafeFlags(["-strict-concurrency=complete"])]
         ),
         .testTarget(
             name: "CodeLanguageTests",
