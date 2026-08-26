@@ -315,6 +315,26 @@ final class DetectionEdgeCaseTests: XCTestCase {
         XCTAssertEqual(Language.detect(filename: "notes.dist"), .plainText)  // inner "notes" is nothing
     }
 
+    /// Xcode's syntax-coloring list, matched (the curated flips documented):
+    /// `.cl` is OpenCL (Common Lisp keeps .lisp/.lsp/.asd), `.ips` crash logs
+    /// are JSON, C-shell scripts ride the shell family.
+    func testXcodeParityLanguages() {
+        let cases: [(String, Language)] = [
+            ("kernel.cl", .opencl),
+            ("rules.clp", .clips),
+            ("scanner.l", .lex),
+            ("parser.y", .yacc),
+            ("login.csh", .sh),
+            ("profile.tcsh", .sh),
+            ("MyApp-2026.ips", .json),
+            ("Doxyfile", .ini),
+            ("core.lisp", .commonlisp),   // the flip must not strand Lisp
+        ]
+        for (name, expected) in cases {
+            XCTAssertEqual(Language.detect(filename: name), expected, name)
+        }
+    }
+
     /// PHPUnit's result cache is JSON wearing a `.cache` name.
     func testPHPUnitResultCacheIsJSON() {
         XCTAssertEqual(Language.detect(filename: ".phpunit.result.cache"), .json)

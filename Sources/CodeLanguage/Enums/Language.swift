@@ -61,6 +61,8 @@ public enum Language: String, CaseIterable, Sendable {
     case carbon
     /// ColdFusion (CFML).
     case cfml
+    /// CLIPS.
+    case clips
     /// Clojure.
     case clojure
     /// CMake.
@@ -215,6 +217,8 @@ public enum Language: String, CaseIterable, Sendable {
     case kotlin
     /// LaTeX.
     case latex
+    /// Lex / Flex.
+    case lex
     /// Lean.
     case lean
     /// Less.
@@ -383,6 +387,8 @@ public enum Language: String, CaseIterable, Sendable {
     case svelte
     /// Swift.
     case swift
+    /// Yacc / Bison.
+    case yacc
     /// systemd Unit.
     case systemd
     /// SystemVerilog.
