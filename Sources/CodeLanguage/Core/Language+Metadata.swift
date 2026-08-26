@@ -97,6 +97,7 @@ public extension Language {
         .freemarker: Meta(name: "FreeMarker", family: .markup, lineComment: nil, block: BlockComment(open: "<#--", close: "-->")),
         .fsharp: Meta(name: "F#", family: .mlLike, lineComment: "//", block: BlockComment(open: "(*", close: "*)")),
         .gdscript: Meta(name: "GDScript (Godot)", family: .shellLike, lineComment: "#", block: nil),
+        .gettext: Meta(name: "Gettext", family: .config, lineComment: "#", block: nil),
         .gitattributes: Meta(name: "Git Attributes", family: .shellLike, lineComment: "#", block: nil),
         .gitcommit: Meta(name: "Git Commit Message", family: .shellLike, lineComment: "#", block: nil),
         .gitconfig: Meta(name: "Git Config", family: .config, lineComment: "#", block: nil),

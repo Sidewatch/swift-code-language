@@ -319,4 +319,15 @@ final class DetectionEdgeCaseTests: XCTestCase {
     func testPHPUnitResultCacheIsJSON() {
         XCTAssertEqual(Language.detect(filename: ".phpunit.result.cache"), .json)
     }
+
+    /// Gettext catalogs and the modern lockfiles resolve to real languages,
+    /// not plain text.
+    func testGettextAndLockfiles() {
+        XCTAssertEqual(Language.detect(filename: "sidewatch-en_GB.po"), .gettext)
+        XCTAssertEqual(Language.detect(filename: "sidewatch.pot"), .gettext)
+        XCTAssertEqual(Language.detect(filename: "go.sum"), .gomod)
+        XCTAssertEqual(Language.detect(filename: "uv.lock"), .toml)
+        XCTAssertEqual(Language.detect(filename: "yarn.lock"), .yaml)
+        XCTAssertEqual(Language.detect(filename: "sidewatch.po").family, .config)
+    }
 }

@@ -133,6 +133,8 @@ public enum Language: String, CaseIterable, Sendable {
     case fsharp
     /// GDScript (Godot).
     case gdscript
+    /// Gettext translation catalogs (.po/.pot).
+    case gettext
     /// Git Attributes.
     case gitattributes
     /// Git Commit Message.
