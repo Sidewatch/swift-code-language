@@ -34,8 +34,24 @@ public extension Language {
             let ext = String(name[name.index(after: dot)...])
             if let l = Self.extensionMap[ext] { return l }
         }
+        // Wrapper suffixes are transparent: `phpcs.xml.dist` / `config.yml.example`
+        // are an XML and a YAML file wearing a marker extension, so when nothing
+        // above matched, strip one wrapper and retry so the real extension decides.
+        // Only reached when detection failed outright, so a wrapper name that IS
+        // mapped (e.g. a future `.dist` language) still wins over the strip.
+        if let dot = name.lastIndex(of: "."), dot > name.startIndex,
+           Self.wrapperSuffixes.contains(String(name[name.index(after: dot)...])) {
+            return detect(filename: String(name[..<dot]))
+        }
         return .plainText
     }
+
+    /// Marker extensions that wrap a real filename without changing its format
+    /// (`phpunit.xml.dist`, `settings.py.example`, `nginx.conf.bak`). Stripped —
+    /// innermost-out, one at a time — only after every direct rule has failed.
+    internal static let wrapperSuffixes: Set<String> = [
+        "dist", "example", "sample", "default", "template", "bak", "orig",
+    ]
 
     /// Lowercased last-path-extension → language (the lowest-precedence rule).
     internal static let extensionMap: [String: Language] = [
@@ -558,6 +574,7 @@ public extension Language {
         ".gvimrc": .vimscript,
         ".htaccess": .apacheconf,
         ".jshintrc": .json,
+        ".phpunit.result.cache": .json,
         ".justfile": .just,
         ".npmignore": .gitignore,
         ".prettierignore": .gitignore,

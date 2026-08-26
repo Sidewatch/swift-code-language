@@ -277,4 +277,46 @@ final class DetectionEdgeCaseTests: XCTestCase {
         XCTAssertEqual(Language.detect(filename: ".envrc").family, .shellLike)
         XCTAssertEqual(Language.detect(filename: "unknown.zzq").family, .plain)
     }
+
+    // MARK: - Wrapper suffixes (.dist / .example / …)
+
+    /// A marker extension wrapping a real one is transparent: the file is the
+    /// inner format, not "plain text called .dist".
+    func testWrapperSuffixesFallThroughToInnerExtension() {
+        let cases: [(String, Language)] = [
+            ("phpcs.xml.dist", .xml),
+            ("phpunit.xml.dist", .xml),
+            ("phpcs-format.xml.dist", .xml),
+            ("composer.json.dist", .json),
+            ("settings.py.example", .python),
+            ("config.yml.sample", .yaml),
+            ("nginx.conf.bak", .nginx),   // the strip re-enters the FILENAME rule too
+            ("wp-config.php.default", .php),
+            ("docker-compose.yml.template", .yaml),
+            ("main.swift.orig", .swift),
+        ]
+        for (name, expected) in cases {
+            XCTAssertEqual(Language.detect(filename: name), expected, name)
+        }
+    }
+
+    /// Stripping recurses innermost-out, so stacked wrappers still resolve.
+    func testStackedWrapperSuffixes() {
+        XCTAssertEqual(Language.detect(filename: "phpunit.xml.dist.bak"), .xml)
+    }
+
+    /// The strip runs only after every direct rule failed — it must never
+    /// reroute a name that already detects, and a bare wrapper name (nothing
+    /// left of the dot worth detecting) stays plain text.
+    func testWrapperStripDoesNotOverrideDirectRules() {
+        XCTAssertEqual(Language.detect(filename: "main.swift"), .swift)      // untouched path
+        XCTAssertEqual(Language.detect(filename: "template"), .plainText)    // no dot at all
+        XCTAssertEqual(Language.detect(filename: ".dist"), .plainText)       // leading-dot bare wrapper
+        XCTAssertEqual(Language.detect(filename: "notes.dist"), .plainText)  // inner "notes" is nothing
+    }
+
+    /// PHPUnit's result cache is JSON wearing a `.cache` name.
+    func testPHPUnitResultCacheIsJSON() {
+        XCTAssertEqual(Language.detect(filename: ".phpunit.result.cache"), .json)
+    }
 }
