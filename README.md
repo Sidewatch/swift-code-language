@@ -71,6 +71,12 @@ default:         break
 - `HighlightFamily` is deliberately **coarse**: many languages only approximately fit their family. It exists to pick a *reasonable* fallback rule set, not to classify precisely.
 - The `Language` catalog and detection tables are **generated** from a curated catalog — edit the generator, not the Swift files.
 
+## For agents
+
+Read `CONTRIBUTING.md` first: the folder layout and the PR rules. `swift test` is the whole
+check, and a new test must fail before the change it covers. `CLAUDE.md` / `AGENTS.md` carry a
+module map.
+
 ## License
 
 MIT

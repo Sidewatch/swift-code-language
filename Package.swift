@@ -5,13 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "CodeLanguage",
-    platforms: [
-        .iOS(.v13),
-        .macOS(.v10_15),
-        .tvOS(.v13),
-        .watchOS(.v6),
-        .visionOS(.v1)
-    ],
+    platforms: [.macOS(.v14)],
     products: [
         .library(
             name: "CodeLanguage",
@@ -21,7 +15,7 @@ let package = Package(
         .target(
             name: "CodeLanguage",
             path: "Sources",
-            swiftSettings: [.unsafeFlags(["-strict-concurrency=complete"])]
+            swiftSettings: [.swiftLanguageMode(.v6)]
         ),
         .testTarget(
             name: "CodeLanguageTests",
