@@ -15,7 +15,7 @@ Filename → programming-language detection for a 217-case catalog of source, ma
 
 ## Requirements
 
-- Swift 5.9+
+- Swift 6.0+ (Swift 6 language mode)
 - macOS 10.15+ / iOS 13+ / tvOS 13+ / watchOS 6+ / visionOS 1+
 
 ## Installation
