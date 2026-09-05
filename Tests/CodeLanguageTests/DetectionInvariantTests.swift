@@ -14,6 +14,8 @@
 import XCTest
 @testable import CodeLanguage
 
+/// Invariants over the detection tables: every map key is lowercased, so no entry is
+/// unreachable.
 final class DetectionInvariantTests: XCTestCase {
 
     // MARK: - Map hygiene (dead or unreachable data)

@@ -2,12 +2,15 @@
 //  CodeLanguageTests.swift
 //  Tests for SwiftCodeLanguage
 //
+//  Tests for `Language` detection by extension and filename over the common cases.
+//
 //  Created by David Sherlock on 7/9/26.
 //
 
 import XCTest
 @testable import CodeLanguage
 
+/// Tests for `Language` detection by extension and filename over the common cases.
 final class CodeLanguageTests: XCTestCase {
 
     // MARK: - Detection by extension

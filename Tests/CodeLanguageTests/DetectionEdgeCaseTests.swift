@@ -1,16 +1,18 @@
 //
 //  DetectionEdgeCaseTests.swift
-//  Tests for SwiftCodeLanguage
+//  CodeLanguageTests
 //
-//  Hardened edge cases for filename-based detection and the HighlightFamily
-//  fallback table. Note: `Language.detect` is filename-only by design — it
-//  never reads file contents, so there is no shebang or content-sniffing
-//  detection to test (the API docblock states "Never reads file contents").
+//  Tests for the contested extensions (`.h`, `.m`, `.v`, `.pl`, …): each resolves to the
+//  curated winner.
+//
+//  Created by David Sherlock on 7/16/26.
 //
 
 import XCTest
 @testable import CodeLanguage
 
+/// Tests for the contested extensions (`.h`, `.m`, `.v`, `.pl`, …): each resolves to the
+/// curated winner.
 final class DetectionEdgeCaseTests: XCTestCase {
 
     // MARK: - Extension collisions (one extension, many plausible languages)
