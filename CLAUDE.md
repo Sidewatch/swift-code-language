@@ -15,3 +15,5 @@ Filename → programming-language detection for a 217-case catalog of source, ma
 ## Rules
 
 @CONTRIBUTING.md
+
+- **Auditing? Read `AUDIT.md` first** — what the last full audit checked and fixed, and the known non-issues to skip; extend it, do not redo it.
