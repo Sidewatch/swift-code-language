@@ -20,10 +20,25 @@ dead-code and risk-pattern scans, docs drift); line-by-line logic review was tar
 - Build: clean. Tests: green.
 - Nothing to fix in this package.
 
+## Logic review — 18 Sep 2026 (every source and test file, line by line)
+
+Nothing to fix. Checked: `detect(filename:)`'s ladder (exact name → `Dockerfile.*` / `.env.*` prefixes →
+compound extension → last extension → one wrapper suffix stripped and retried), its degenerate inputs
+(`""`, `"."`, `"a."` never reach `index(before:)` on an empty string, because the `if let` binds the dot
+first), the two compound keys not overlapping (a dictionary scan would otherwise decide by hash seed —
+`testCompoundKeysDoNotOverlap` guards it), and every metadata row's comment tokens against the language
+(Ruby's `=begin`/`=end`, Lua's `--[[ ]]`, Pascal's `{ }`, Julia's `#= =#`, Nim's `#[ ]#`, PowerShell's
+`<# #>`, Lean's `/- -/`, XQuery's `(: :)`, PlantUML's `/' '/`, Velocity's `#* *#`, the template
+languages' fences; Zig, Python, Cairo, Prisma, Q#, Gleam and CUE correctly carry no block comment).
+
 ## Known non-issues (do not "fix" these again)
 
-- None recorded.
+- `.plist` detects as XML while `.entitlements` detects as the `plist` language; both highlight through
+  the XML grammar, and the XML answer for `.plist` is deliberate (binary plists exist).
+- Ruby's `=begin` / `=end` must start a line, so Toggle Block Comment produces a form Ruby rejects when
+  wrapped inline; the token pair is still the right metadata.
 
 ## History
 
 - 17 Sep 2026 — full audit (app + all 20 libraries), Claude with David.
+- 18 Sep 2026 — logic review (every source and test file, line by line), Claude with David.
