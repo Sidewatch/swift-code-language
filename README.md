@@ -1,3 +1,7 @@
+> **This package has moved.** It is now the `CodeLanguage` module of [swift-code-kit](https://github.com/Sidewatch/swift-code-kit), with its full
+> history. Depend on `.package(url: "https://github.com/Sidewatch/swift-code-kit.git", from: "0.1.0")` and the `CodeLanguage` product;
+> `import CodeLanguage` is unchanged. This repository is archived.
+
 # Swift Code Language
 
 Filename → programming-language detection for a 217-case catalog of source, markup, and config languages, with per-language display metadata and a coarse `HighlightFamily` for fallback syntax highlighting. Pure Swift, Foundation only, zero dependencies — and it never reads file contents, so detection is instant and safe on any path.
